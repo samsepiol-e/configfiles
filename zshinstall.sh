@@ -78,6 +78,7 @@ zshrc_template() {
     export ZSH_CUSTOM="$_HOME/.oh-my-zsh/custom"
     ZSH_THEME="${_THEME}"
 EOM
+    printf "\nsource \$ZSH/oh-my-zsh.sh\n"
 }
 
 powerline10k_config() {
