@@ -23,5 +23,5 @@ while getopts ":t:p:a:" opt; do
 done
 shift $((OPTIND -1))
 echo $1
-cat $1/.vimrc
+echo $HOME
 pause
