@@ -102,7 +102,9 @@ fi
 if [ "`echo $THEME | grep -E '^http.*'`" != "" ]; then
     theme_repo=`basename $THEME`
     THEME_DIR="$HOME/.oh-my-zsh/custom/themes/$theme_repo"
-    git clone $THEME $THEME_DIR
+    if [ ! -d "$THEME_DIR" ] ; then
+        git clone $THEME $THEME_DIR
+    fi
     theme_name=`cd $THEME_DIR; ls *.zsh-theme | head -1`
     theme_name="${theme_name%.zsh-theme}"
     THEME="$theme_repo/$theme_name"
@@ -113,6 +115,11 @@ zshrc_template "$HOME" "$THEME" > $HOME/.zshrc
 
 # Install powerlevel10k if no other theme was specified
 if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
-    git clone https://github.com/romkatv/powerlevel10k $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-    powerline10k_config >> $HOME/.zshrc
+    CLONEDIR=$HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    if [ ! -d "$CLONEDIR" ] ; then
+        git clone https://github.com/romkatv/powerlevel10k $CLONEDIR
+        powerline10k_config >> $HOME/.zshrc
+    else
+        echo "Git Clone failed. Directory already exists"
+    fi
 fi

@@ -43,7 +43,12 @@ plugin_list=""
 for plugin in $PLUGINS; do
     if [ "`echo $plugin | grep -E '^http.*'`" != "" ]; then
         plugin_name=`basename $plugin`
-        git clone $plugin $HOME/.oh-my-zsh/custom/plugins/$plugin_name
+        CLONEDIR=$HOME/.oh-my-zsh/custom/plugins/$plugin_name
+        if [ ! -d "$CLONEDIR" ] ; then
+            git clone $plugin $CLONEDIR
+        else
+            echo "Git Clone failed. Directory already exists"
+        fi
     else
         plugin_name=$plugin
     fi
