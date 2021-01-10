@@ -77,6 +77,7 @@ zshrc_template() {
     export LC_ALL='en_US.UTF-8'
     export TERM=xterm
     export ZSH="$_HOME/.oh-my-zsh"
+    export ZSH_CUSTOM="$ZSH/cuustom"
     ZSH_THEME="${_THEME}"
 EOM
 }
