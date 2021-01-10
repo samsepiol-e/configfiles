@@ -27,8 +27,8 @@ for i in "${array[@]}"
 do
     "$(git checkout $i)"
     echo $BRANCHNAME
-    "$(git merge --no-ff '$BRANCHNAME')"
+    git merge --no-ff "$BRANCHNAME"
     if [ $i = 'master' ]; then
-        "$(git tag -a '$CURRENTVERSION')"
+        git tag -a "$CURRENTVERSION"
     fi
 done
