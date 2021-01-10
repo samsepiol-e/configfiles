@@ -32,7 +32,7 @@ fi
 if [[ "$1" == "hotfix" ]]; then
   branch_origin="master"
 else 
-  branch_origin="development"
+  branch_origin="develop"
 fi
 git checkout -b $1/${major}.${minor}.${build} $branch_origin
 echo "old version : $version"
