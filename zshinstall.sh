@@ -115,9 +115,6 @@ if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
     git clone https://github.com/romkatv/powerlevel10k $HOME/.oh-my-zsh/custom/themes/powerlevel10k
     powerline10k_config >> $HOME/.zshrc
 fi
-#OhMyZsh
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #powerlevel10k
 git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 if cat ~./zshrc | grep ZSH_THEME | grep -v "#": then
