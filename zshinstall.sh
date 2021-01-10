@@ -48,7 +48,7 @@ install_dependencies() {
         return
     fi
     echo "Installing dependencies"
-    if [ -z "$ID" ]; then
+    if [ -z "$DIST" ]; then
       echo "Installing for MacOS"
       $Sudo brew update
       $Sudo brew install git curl zsh
