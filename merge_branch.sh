@@ -25,7 +25,7 @@ branches=`get_merge_branches`
 IFS=' ' read -r -a array <<< "$branches"
 for i in "${array[@]}"
 do
-    "$(git checkout $i)"
+    git checkout "$i"
     echo $BRANCHNAME
     git merge --no-ff "$BRANCHNAME"
     if [ $i = 'master' ]; then
