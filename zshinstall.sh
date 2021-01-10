@@ -33,9 +33,38 @@ check_version() {
 }
 
 install_dependencies() {
+    DIST=`check_dist`
+    VERSION=`check_version`
+    if [ "`id -u`" = "0" ]; then
+        Sudo=''
+    elif which sudo; then
+        Sudo='sudo'
+    else
+        echo "WARNING: 'sudo' command not found. Skipping the installation of dependencies. "
+        echo "If this fails, you need to do one of these options:"
+        echo "   1) Install 'sudo' before calling this script"
+        echo "OR"
+        echo "   2) Install the required dependencies: git curl zsh"
+        return
+    fi
     echo "Installing dependencies"
-    $sudo brew update
-    $sudo brew install git curl zsh
+    if [ -z "$ID" ]; then
+      echo "Installing for MacOS"
+      $Sudo brew update
+      $Sudo brew install git curl zsh
+    else
+      case $DIST in
+	arch)
+	  $Sudo pacman -Syu
+	  $Sudo pacman -Syy
+	  $Sudo pacman -S curl git zsh
+	  ;;
+	debian)
+	  $Sudo apt-get update
+	  $Sudo apt-get -y install git curl zsh locales locales-all
+	  $Sudo locale-gen en_US.UTF-8
+      esac
+    fi
 }
 
 zshrc_template() {
@@ -49,14 +78,13 @@ zshrc_template() {
     export TERM=xterm
     export ZSH="$_HOME/.oh-my-zsh"
     ZSH_THEME="${_THEME}"
-    plugins=($_PLUGINS)
-    EOM
+EOM
 }
 
 powerline10k_config() {
     cat <<EOM
     POWERLEVEL10K_MODE="awesome-fontconfig"
-    EOM
+EOM
 }
 
 install_dependencies
