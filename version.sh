@@ -20,11 +20,15 @@ if [[ "$1" == "feature" ]]; then
 elif [[ "$1" == "hotfix" ]]; then
   build=$(echo $build + 1 | bc)
 elif [[ "$1" == "release" ]]; then
+  minor=$(echo $minor+1 | bc)
+  build=0
+  minor=0
+elif [[ "$1" == "major" ]]; then
   major=$(echo $major+1 | bc)
   build=0
   minor=0
 else
-  echo "usage: ./version.sh [release/feature/hotfix]"
+  echo "usage: ./version.sh [release/major/feature/hotfix]"
   exit -1
 fi
 
