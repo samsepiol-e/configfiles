@@ -26,7 +26,7 @@ IFS=' ' read -r -a array <<< "$branches"
 for i in "${array[@]}"
 do
     "$(git checkout $i)"
-    "$(git merge --no-ffcheckout $BRANCHNAME)"
+    "$(git merge --no-ff $BRANCHNAME)"
     if [ $i = 'master' ]; then
         "$(git tag -a '$CURRENTVERSION')"
     fi
