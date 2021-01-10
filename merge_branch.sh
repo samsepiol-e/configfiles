@@ -6,6 +6,7 @@ BRANCHTYPE="${array[0]}"
 CURRENTVERSION="${array[1]}"
 echo $BRANCHTYPE
 echo $CURRENTVERSION
+echo $BRANCHNAME
 
 
 get_merge_branches() {
@@ -30,66 +31,3 @@ do
         "$(git tag -a '$CURRENTVERSION')"
     fi
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
