@@ -29,12 +29,12 @@ else
 fi
 
 # echo the new version number
-echo "${major}.${minor}.${build}">currentversion
-echo "old version : $version"
-echo "new version : ${major}.${minor}.${build}"
 if [[ "$1" == "hotfix" ]]; then
   branch_origin="master"
 else 
   branch_origin="development"
 fi
 git checkout -b $1/${major}.${minor}.${build} $branch_origin
+echo "old version : $version"
+echo "new version : ${major}.${minor}.${build}"
+echo "${major}.${minor}.${build}">currentversion
