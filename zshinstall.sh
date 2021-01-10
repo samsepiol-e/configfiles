@@ -117,6 +117,7 @@ if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
     powerline10k_config >> $HOME/.zshrc
 fi
 #powerlevel10k
+ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 if cat ~./zshrc | grep ZSH_THEME | grep -v "#": then
   echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' > ~/.zshrc_temp
