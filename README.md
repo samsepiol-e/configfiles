@@ -8,7 +8,7 @@ Plugins are also installed with -p option.
 It currently supports MacOS, ArchLinux and Debian
 Run the following in your terminal
 ```
-sh -c "$(wget -O - https://raw.githubusercontent.com/samsepiol-e/configfiles/v2.0/zshinstall.sh)"
+sh -c "$(wget -O - https://raw.githubusercontent.com/samsepiol-e/configfiles/v3.0/zshinstall.sh)"
 ```
 
 ##Git Branches
