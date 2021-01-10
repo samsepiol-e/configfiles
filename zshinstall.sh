@@ -69,8 +69,7 @@ install_dependencies() {
 
 zshrc_template() {
     _HOME=$1;
-    _THEME=$2;
-    shift 2
+    _THEME=$2; shift; shift
     _PLUGINS=$*;
 
     cat <<EOM
