@@ -12,13 +12,13 @@ echo $BRANCHNAME
 get_merge_branches() {
     case $BRANCHTYPE in
         feature)
-            echo "development"
+            echo "develop"
             ;;
         hotfix)
-            echo "master development"
+            echo "master develop"
             ;;
         release)
-            echo "master development"
+            echo "master develop"
     esac
 }
 branches=`get_merge_branches`
