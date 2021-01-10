@@ -6,6 +6,7 @@ BRANCHTYPE="${array[0]}"
 CURRENTVERSION="${array[1]}"
 echo $BRANCHTYPE
 echo $CURRENTVERSION
+echo $BRANCHNAME
 
 
 get_merge_branches() {
@@ -24,72 +25,10 @@ branches=`get_merge_branches`
 IFS=' ' read -r -a array <<< "$branches"
 for i in "${array[@]}"
 do
-    "$(git checkout $i)"
-    "$(git merge --no-ffcheckout $BRANCHNAME)"
+    git checkout "$i"
+    echo $BRANCHNAME
+    git merge --no-ff "$BRANCHNAME"
     if [ $i = 'master' ]; then
-        "$(git tag -a '$CURRENTVERSION')"
+        git tag -a "$CURRENTVERSION"
     fi
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
