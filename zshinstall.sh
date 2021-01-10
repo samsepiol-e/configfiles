@@ -102,7 +102,9 @@ fi
 if [ "`echo $THEME | grep -E '^http.*'`" != "" ]; then
     theme_repo=`basename $THEME`
     THEME_DIR="$HOME/.oh-my-zsh/custom/themes/$theme_repo"
-    git clone $THEME $THEME_DIR
+    if [ ! -d "$THEME_DIR" ] ; then
+        git clone $THEME $THEME_DIR
+    fi
     theme_name=`cd $THEME_DIR; ls *.zsh-theme | head -1`
     theme_name="${theme_name%.zsh-theme}"
     THEME="$theme_repo/$theme_name"
@@ -113,19 +115,11 @@ zshrc_template "$HOME" "$THEME" > $HOME/.zshrc
 
 # Install powerlevel10k if no other theme was specified
 if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
-    git clone https://github.com/romkatv/powerlevel10k $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-    powerline10k_config >> $HOME/.zshrc
+    CLONEDIR=$HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    if [ ! -d "$CLONEDIR" ] ; then
+        git clone https://github.com/romkatv/powerlevel10k $CLONEDIR
+        powerline10k_config >> $HOME/.zshrc
+    else
+        echo "Git Clone failed. Directory already exists"
+    fi
 fi
-#powerlevel10k
-ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-if cat ~./zshrc | grep ZSH_THEME | grep -v "#": then
-  echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' > ~/.zshrc_temp
-  cat ~/.zshrc >> ~/.zshrc_temp
-  mv ~/.zshrc_temp ~/.zshrc
-else
-  sed -i '' -E 's/(^ZSH_THEME=).+$/\1"powerlevel10k\/powerlevel10k"/' ~/.zshrc
-fi
-#zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i '' -E 's/(^plugins=\().+$/\1zsh-autosuggestions/' ~/.zshrc
