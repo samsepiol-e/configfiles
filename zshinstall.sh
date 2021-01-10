@@ -40,11 +40,7 @@ install_dependencies() {
     elif which sudo; then
         Sudo='sudo'
     else
-        echo "WARNING: 'sudo' command not found. Skipping the installation of dependencies. "
-        echo "If this fails, you need to do one of these options:"
-        echo "   1) Install 'sudo' before calling this script"
-        echo "OR"
-        echo "   2) Install the required dependencies: git curl zsh"
+        echo "sudo command not found."
         return
     fi
     echo "Installing dependencies"
@@ -55,11 +51,13 @@ install_dependencies() {
     else
       case $DIST in
 	arch)
+        echo "iInstalling dependencies for Arch Linux"
 	  $Sudo pacman -Syu
 	  $Sudo pacman -Syy
 	  $Sudo pacman -S curl git zsh
 	  ;;
 	debian)
+        echo "Installing dependencies for Debian"
 	  $Sudo apt-get update
 	  $Sudo apt-get -y install git curl zsh locales locales-all
 	  $Sudo locale-gen en_US.UTF-8
@@ -84,7 +82,14 @@ EOM
 
 powerline10k_config() {
     cat <<EOM
-    POWERLEVEL10K_MODE="awesome-fontconfig"
+    export ZSH="/Users/machina/.oh-my-zsh"
+    export TERM="xterm-256color"
+    ZSH_THEME="powerlevel10k/powerlevel10k"
+    POWERLINE_HIDE_HOST_NAME="true"
+    POWERLINE_SHOW_GIT_ON_RIGHT="true"
+    #POWERLINE_CUSTOM_CURRENT_PATH="%3~"
+    POWERLEVEL10K_SHORTEN_DIR_LENGTH=2
+    POWERLEVEL10K_MODE='awesome-fontconfig'
 EOM
 }
 
@@ -118,8 +123,8 @@ if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
     CLONEDIR=$HOME/.oh-my-zsh/custom/themes/powerlevel10k
     if [ ! -d "$CLONEDIR" ] ; then
         git clone https://github.com/romkatv/powerlevel10k $CLONEDIR
-        powerline10k_config >> $HOME/.zshrc
     else
         echo "Git Clone failed. Directory already exists"
     fi
+    powerline10k_config >> $HOME/.zshrc
 fi
