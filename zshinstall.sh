@@ -116,16 +116,6 @@ if [ "$THEME" = "powerlevel10k/powerlevel10k" ]; then
     git clone https://github.com/romkatv/powerlevel10k $HOME/.oh-my-zsh/custom/themes/powerlevel10k
     powerline10k_config >> $HOME/.zshrc
 fi
-#powerlevel10k
-ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-if cat ~./zshrc | grep ZSH_THEME | grep -v "#": then
-  echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' > ~/.zshrc_temp
-  cat ~/.zshrc >> ~/.zshrc_temp
-  mv ~/.zshrc_temp ~/.zshrc
-else
-  sed -i '' -E 's/(^ZSH_THEME=).+$/\1"powerlevel10k\/powerlevel10k"/' ~/.zshrc
-fi
 #zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 sed -i '' -E 's/(^plugins=\().+$/\1zsh-autosuggestions/' ~/.zshrc
