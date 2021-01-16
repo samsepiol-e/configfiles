@@ -19,6 +19,10 @@ get_merge_branches() {
             ;;
         release)
             echo "master develop"
+            ;;
+        major)
+            echo "master develop"
+            ;;
     esac
 }
 branches=`get_merge_branches`
@@ -32,3 +36,5 @@ do
         git tag -a "$CURRENTVERSION"
     fi
 done
+git push origin -d "$BRANCHNAME"
+git branch -d "$BRANCHNAME"
