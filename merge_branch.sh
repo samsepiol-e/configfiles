@@ -19,8 +19,10 @@ get_merge_branches() {
             ;;
         release)
             echo "master develop"
+            ;;
         major)
             echo "master develop"
+            ;;
     esac
 }
 branches=`get_merge_branches`
