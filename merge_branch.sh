@@ -36,3 +36,5 @@ do
         git tag -a "$CURRENTVERSION"
     fi
 done
+git push origin -d "$BRANCHNAME"
+git branch -d "$BRANCHNAME"
