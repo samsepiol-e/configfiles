@@ -42,3 +42,5 @@ git checkout -b $1/${major}.${minor}.${build} $branch_origin
 echo "old version : $version"
 echo "new version : ${major}.${minor}.${build}"
 echo "${major}.${minor}.${build}">currentversion
+#adding current version
+git add currentversion
