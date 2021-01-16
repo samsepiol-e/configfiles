@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eu
+set -e
 BRANCHNAME="$(git rev-parse --abbrev-ref HEAD)"
 IFS='/' read -r -a array <<< "$BRANCHNAME"
 BRANCHTYPE="${array[0]}"
