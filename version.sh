@@ -44,3 +44,5 @@ echo "${major}.${minor}.${build}">currentversion
 #adding current version
 git add currentversion
 git checkout -b $1/${major}.${minor}.${build} $branch_origin
+#push to remote branch
+git push -u origin $1/${major}.${minor}.${build}
