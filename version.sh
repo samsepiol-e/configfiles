@@ -4,7 +4,13 @@ version=$(cat currentversion)
 major=0
 minor=0
 build=0
-echo $2
+OPT_REMOTE="true"
+while getopts ":l" o; do
+    case "$o" in
+        l)  OPT_REMOTE="false" ;;
+    esac
+done
+shift $OPTIND-1
 # break down the version number into it's components
 regex="([0-9]+).([0-9]+).([0-9]+)"
 if [[ $version =~ $regex ]]; then
@@ -51,6 +57,8 @@ echo "${major}.${minor}.${build}">currentversion
 #adding current version
 git add currentversion
 git checkout -b $newbranchname  $branch_origin
-git push -u origin $newbranchname
+if ${OPT_REMOTE}; then
+    git push -u origin $newbranchname
+fi
 #push to remote branch
 #git push -u origin $1/${major}.${minor}.${build}
