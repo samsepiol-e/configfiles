@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eu
+set -e
 BRANCHNAME="$(git rev-parse --abbrev-ref HEAD)"
 IFS='/' read -r -a array <<< "$BRANCHNAME"
 BRANCHTYPE="${array[0]}"
@@ -27,14 +27,21 @@ get_merge_branches() {
 }
 branches=`get_merge_branches`
 IFS=' ' read -r -a array <<< "$branches"
-for i in "${array[@]}"
-do
-    git checkout "$i"
-    echo $BRANCHNAME
+#if -c flag is used, only merge to develop without deleting current branch
+if [ "$1" = '-c' ]; then
+    git checkout develop
     git merge --no-ff "$BRANCHNAME"
-    if [ $i = 'master' ]; then
-        git tag -a "$CURRENTVERSION"
-    fi
-done
-git push origin -d "$BRANCHNAME"
-git branch -d "$BRANCHNAME"
+    git push
+else
+    for i in "${array[@]}"
+    do
+        git checkout "$i"
+        git merge --no-ff "$BRANCHNAME"
+        if [ $i = 'master' ]; then
+            git tag -a "$CURRENTVERSION"
+        fi
+        git push
+    done
+    git push origin -d "$BRANCHNAME"
+    git branch -d "$BRANCHNAME"
+fi
