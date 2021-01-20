@@ -11,7 +11,7 @@ while getopts ":l" o; do
     esac
 done
 shift $(($OPTIND-1))
-if [ "$1" == "release" ] || [ "$1" == "major" ];
+if [ "$1" == "release" ] || [ "$1" == "major" ]; then
     OPT_REMOTE="false"
 fi
 # break down the version number into it's components
