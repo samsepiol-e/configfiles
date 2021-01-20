@@ -3,7 +3,8 @@ set -e
 OPT_CONTINUE="false"
 OPT_CHECKOUT="false"
 OPT_DELREMOTE="true"
-while getopts "bt:cl" o; do
+OPT_DEBUG="false"
+while getopts "bt:cld" o; do
     case "$o" in
         b) BRANCHNAME="$OPTARGS"
            OPT_CHECKOUT="true"
@@ -11,6 +12,7 @@ while getopts "bt:cl" o; do
         t) TAGNAME="$OPTARGS" ;;
         c)  OPT_CONTINUE="true" ;;
         l)  OPT_DELREMOTE="false" ;;
+        d)  OPT_DEBUG="true";;
         [?]) print >$2 "Usage: $0 [-b branch] [-t tagname] [-c] [-l]"
             exit 1;
     esac
@@ -21,21 +23,24 @@ if ${OPT_CHECKOUT}; then
 else
     BRANCHNAME="$(git rev-parse --abbrev-ref HEAD)"
 fi
+echo "Branch Name $BRANCHNAME"
+echo "Branch Type $BRANCHTYPE"
+echo "Version For Merge: $CURRENTVERSION"
 if [ $BRANCHNAME = "master" ]; then
     print >$2 "Please checkout to merge branch or use -b option to specify branch you wan to merge"
     exit 1;
 elif [ $BRANCHNAME = "develop" ]; then
     git checkout master
-    git merge develop
+    git merge --no-ff develop
     git push
-    exit 1;
+    exit 0;
+fi
+if ${OPT_DEBUG}; then
+    exit 0;
 fi
 IFS='/' read -r -a array <<< "$BRANCHNAME"
 BRANCHTYPE="${array[0]}"
 CURRENTVERSION="${array[1]}"
-echo $BRANCHTYPE
-echo $CURRENTVERSION
-echo $BRANCHNAME
 if [ $BRANCHTYPE == "release" ]; then
     OPT_DELREMOTE="false"
 fi
