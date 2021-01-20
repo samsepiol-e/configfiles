@@ -21,10 +21,10 @@ if ${OPT_CHECKOUT}; then
 else
     BRANCHNAME="$(git rev-parse --abbrev-ref HEAD)"
 fi
-if [ $BRANCHNAME = "master" ];
+if [ $BRANCHNAME = "master" ]; then
     print >$2 "Please checkout to merge branch or use -b option to specify branch you wan to merge"
     exit 1;
-elif [ $BRANCHNAME = "develop" ];
+elif [ $BRANCHNAME = "develop" ]; then
     git checkout master
     git merge develop
     git push
